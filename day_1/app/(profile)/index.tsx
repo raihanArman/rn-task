@@ -1,5 +1,6 @@
 import AppBar from '@/components/AppBar';
 import Button from '@/components/Button';
+import Input from '@/components/Input';
 import ProfileCard from '@/components/ProfileCard';
 import { colors } from '@/constants/theme';
 import React, { useState } from 'react';
@@ -32,6 +33,7 @@ const ProfileScreen = () => {
         },
     ]);
 
+    const [searchQuery, setSearchQuery] = useState('');
     const [isModalVisible, setModalVisible] = useState(false);
     const [profileToEdit, setProfileToEdit] = useState<any>(null);
 
@@ -76,6 +78,13 @@ const ProfileScreen = () => {
         setData((prev) => prev.filter((p) => p.id !== profileId));
     }
 
+    const filteredData = data.filter(
+        (item) =>
+            item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            item.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            item.phone.includes(searchQuery)
+    );
+
     return (
         <View style={styles.container}>
             <AppBar
@@ -88,9 +97,15 @@ const ProfileScreen = () => {
                     />
                 }
             />
-
+            <View style={styles.search} >
+                <Input
+                    placeholder="Search by name, email, or phone"
+                    value={searchQuery}
+                    onChangeText={setSearchQuery}
+                />
+            </View>
             <FlatList
-                data={data}
+                data={filteredData}
                 renderItem={({ item }) => (
                     <ProfileCard
                         {...item}
@@ -126,4 +141,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.primary,
         width: 80,
     },
+    search: {
+        padding: 16,
+    }
 })
