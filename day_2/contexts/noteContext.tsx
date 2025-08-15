@@ -28,7 +28,7 @@ export const NoteProvider = ({ children }: { children: ReactNode }) => {
     const loadNotes = async () => {
         const allNotes = await getNotes();
 
-        // filter berdasarkan search
+        // filter
         const filtered = allNotes.filter((note: NoteProps) =>
             note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
             note.content.toLowerCase().includes(searchQuery.toLowerCase())
