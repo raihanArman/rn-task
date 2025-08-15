@@ -21,32 +21,32 @@ export const NoteProvider = ({ children }: { children: ReactNode }) => {
     const [searchQuery, setSearchQuery] = useState<string>('');
     const [sortBy, setSortBy] = useState<SortByOption>('newest');
 
+    const priorityMap: Record<string, number> = { high: 3, medium: 2, low: 1 };
+
+
     useEffect(() => {
         loadNotes()
-    }, [])
+    }, [searchQuery, sortBy])
 
     const loadNotes = async () => {
         const allNotes = await getNotes();
 
         // filter
         const filtered = allNotes.filter((note: NoteProps) =>
-            note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            note.content.toLowerCase().includes(searchQuery.toLowerCase())
+            note.title.toLowerCase().includes(searchQuery.toLowerCase())
         );
 
         // sort
-        const sorted = filtered.sort((a: NoteProps, b: NoteProps) => {
+        const sorted = [...filtered].sort((a: NoteProps, b: NoteProps) => {
             switch (sortBy) {
                 case 'newest':
                     return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
                 case 'oldest':
                     return new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime();
                 case 'priorityHighLow':
-                    const priorityMap = { high: 3, medium: 2, low: 1 };
                     return (priorityMap[b.priority] ?? 0) - (priorityMap[a.priority] ?? 0);
                 case 'priorityLowHigh':
-                    const priorityMap2 = { high: 3, medium: 2, low: 1 };
-                    return (priorityMap2[a.priority] ?? 0) - (priorityMap2[b.priority] ?? 0);
+                    return (priorityMap[a.priority] ?? 0) - (priorityMap[b.priority] ?? 0);
                 default:
                     return 0;
             }
@@ -88,9 +88,13 @@ export const NoteProvider = ({ children }: { children: ReactNode }) => {
             deleteNote: handleDeleteNote,
             setNote: handleSetNote,
             searchQuery,
-            setSearchQuery,
+            setSearchQuery: (q) => {
+                setSearchQuery(q);
+            },
             sortBy,
-            setSortBy,
+            setSortBy: (s) => {
+                setSortBy(s);
+            },
         }}>
             {children}
         </NoteContext.Provider>
