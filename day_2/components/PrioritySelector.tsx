@@ -2,6 +2,7 @@ import { colorsMap, PriorityLevel, PriorityProps } from '@/types';
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import Typo from './Typo';
+import { colors } from '@/constants/theme';
 
 
 
@@ -51,6 +52,6 @@ const styles = StyleSheet.create({
         height: 20,
         borderRadius: 10,
         borderWidth: 2,
-        borderColor: '#ccc', // default border grey
+        borderColor: colors.neutral500,
     },
 })

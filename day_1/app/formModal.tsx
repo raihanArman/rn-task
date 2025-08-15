@@ -8,7 +8,7 @@ interface FormModalProps {
     isVisible: boolean;
     onClose: () => void;
     onSubmit: (profile: any) => void;
-    profileToEdit?: any; // optional, kalau ada berarti edit
+    profileToEdit?: any;
 }
 
 
@@ -55,9 +55,9 @@ const FormModal = ({ isVisible, onClose, onSubmit, profileToEdit }: FormModalPro
         <Modal
             visible={isVisible}
             animationType="slide"
-            presentationStyle="pageSheet" // ini bikin mirip bottom sheet iOS
-            onRequestClose={onClose} // Android back button
-            onDismiss={onClose} // iOS callback
+            presentationStyle="pageSheet"
+            onRequestClose={onClose}
+            onDismiss={onClose}
             supportedOrientations={['portrait', 'landscape']}
             transparent={true}
         >

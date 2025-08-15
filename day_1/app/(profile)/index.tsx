@@ -119,7 +119,7 @@ const ProfileScreen = () => {
                 isVisible={isModalVisible}
                 onClose={() => setModalVisible(false)}
                 onSubmit={handleSubmitProfile}
-                profileToEdit={profileToEdit} // ini untuk edit
+                profileToEdit={profileToEdit}
             />
         </View>
     );

@@ -3,7 +3,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const NOTES_KEY = 'NOTES_DATA';
 
-// Ambil semua notes
 export const getNotes = async () => {
     try {
         const jsonValue = await AsyncStorage.getItem(NOTES_KEY);
@@ -14,7 +13,6 @@ export const getNotes = async () => {
     }
 };
 
-// Simpan notes baru
 export const addNote = async (note: NoteProps) => {
     try {
         const existingNotes = await getNotes();
@@ -32,7 +30,6 @@ export const addNote = async (note: NoteProps) => {
     }
 };
 
-// Update note
 export const updateNote = async (id: number, updatedFields: NoteProps) => {
     try {
         const notes = await getNotes();
@@ -47,7 +44,6 @@ export const updateNote = async (id: number, updatedFields: NoteProps) => {
     }
 };
 
-// Hapus note
 export const deleteNote = async (id: number) => {
     try {
         const notes = await getNotes();
