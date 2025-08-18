@@ -1,28 +1,37 @@
-import NoteCard from '@/components/molecules/NoteCard'
-import SearchInput from '@/components/molecules/SearchInput'
-import SortByDropdown from '@/components/molecules/SortByDropdown'
-import Typo from '@/components/molecules/Typo'
-import { colors } from '@/constants/theme'
-import { useNote } from '@/contexts/noteContext'
-import { SortByOption } from '@/types'
-import { useRouter } from 'expo-router'
+import { StyleSheet, Text, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { useNote } from '@/contexts/noteContext';
+import { RootNavigationProp, SortByOption } from '@/utils/types';
+import Header from '@/components/molecules/Header';
+import { FlatList, TouchableOpacity } from 'react-native';
+import NoteCard from '@/components/molecules/NoteCard';
+import SearchInput from '@/components/molecules/SearchInput';
+import SortByDropdown from '@/components/molecules/SortByDropdown';
+import Typo from '@/components/molecules/Typo';
+import { colors } from '@/constants/theme';
 import * as Icons from 'phosphor-react-native'
-import React, { useState } from 'react'
-import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { useNavigation, useRouter } from 'expo-router'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootStackParamList } from '@/app/_layout'
 
-const NotesScreen = () => {
-    const { notes, setNote, searchQuery, setSearchQuery, sortBy, setSortBy } = useNote()
-    const router = useRouter()
 
-    const [selectedPriority, setSelectedPriority] = useState<SortByOption>('newest');
+const NotesSearch = () => {
+    const { notesSearch, getNotesSearch, setNote, searchQuery, setSearchQuery, sortBy, setSortBy, toggleFavorite } = useNote()
+    const rootNavigation = useNavigation<RootNavigationProp>();
+
+
+    useEffect(() => {
+        getNotesSearch()
+    }, [searchQuery, sortBy])
+
 
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Typo size={40} fontWeight={'600'}>Notes</Typo>
+                <Header title="Search Notes" onBack={() => rootNavigation.goBack()} />
                 <TouchableOpacity onPress={() => {
                     setNote(null)
-                    router.push(`/formModal`)
+                    rootNavigation.navigate("FormModal")
                 }}>
                     <Icons.Plus size={24} color={colors.primary} />
                 </TouchableOpacity>
@@ -39,20 +48,21 @@ const NotesScreen = () => {
                     onChange={setSortBy}
                 />
             </View>
-            {notes.length === 0 ? (
+            {notesSearch.length === 0 ? (
                 <View style={styles.emptyContainer}>
                     <Typo size={20} fontWeight={'600'}>No notes found</Typo>
                 </View>
             ) : (
                 <FlatList
-                    data={notes}
+                    data={notesSearch}
                     renderItem={({ item }) => (
                         <NoteCard
                             note={item}
                             onPress={() => {
                                 setNote(item)
-                                router.push(`/formModal`)
+                                rootNavigation.navigate("FormModal")
                             }}
+                            toggleFavorite={() => toggleFavorite(item.id)}
                         />
                     )}
                     style={styles.flat}
@@ -62,7 +72,7 @@ const NotesScreen = () => {
     )
 }
 
-export default NotesScreen
+export default NotesSearch
 
 const styles = StyleSheet.create({
     container: {
@@ -90,4 +100,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 100
     },
+    searchBar: {
+        flexDirection: 'row',
+        gap: 16,
+        padding: 16,
+        backgroundColor: colors.neutral100,
+        borderRadius: 12,
+        borderColor: colors.neutral500,
+        borderWidth: 1,
+        marginHorizontal: 16,
+    }
 })

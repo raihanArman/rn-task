@@ -1,0 +1,37 @@
+import React from "react";
+import { CommonActions, createNavigationContainerRef, NavigationContainer } from "@react-navigation/native";
+import { NoteProvider } from "@/contexts/noteContext";
+import TabNavigator from "./navigation/TabNavigator";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import FormModal from "./screens/notes/modal/formModal";
+import DrawerNavigator from "./navigation/DrawerNavigator";
+import SplashScreen from "./screens/splash/SplashScreen";
+import LoginScreen from "./screens/auth/LoginScreen";
+import { AuthProvider } from "@/contexts/authContext";
+
+export type RootStackParamList = {
+  Login: undefined;
+  Splash: undefined;
+  Main: undefined;
+  FormModal: undefined;
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+export const rootNavigationRef = createNavigationContainerRef<RootStackParamList>();
+
+
+export default function RootLayout() {
+  return (
+    <AuthProvider>
+      <NoteProvider>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Splash" component={SplashScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Main" component={DrawerNavigator} />
+          <Stack.Screen name="FormModal" component={FormModal} options={{ presentation: 'modal' }} />
+        </Stack.Navigator>
+      </NoteProvider>
+    </AuthProvider>
+  );
+}

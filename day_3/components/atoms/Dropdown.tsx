@@ -1,8 +1,8 @@
 import { colors } from "@/constants/theme";
-import { DropdownProps } from "@/types";
+import { DropdownProps } from "@/utils/types";
 import { useState } from "react";
 import { FlatList, Modal, StyleSheet, TouchableOpacity, View } from "react-native";
-import Typo from "./Typo";
+import Typo from "../molecules/Typo";
 
 const Dropdown = (props: DropdownProps) => {
     const [visible, setVisible] = useState(false);

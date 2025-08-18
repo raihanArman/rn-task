@@ -1,5 +1,5 @@
-import { SortByDropdownProps, SortByOption } from "@/types";
-import Dropdown from "./Dropdown";
+import { SortByDropdownProps, SortByOption } from "@/utils/types";
+import Dropdown from "../atoms/Dropdown";
 
 const SortByDropdown = ({ value, onChange }: SortByDropdownProps) => {
     const optionsMap: Record<SortByOption, string> = {

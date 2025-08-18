@@ -1,44 +1,36 @@
 import NoteCard from '@/components/molecules/NoteCard'
-import SearchInput from '@/components/molecules/SearchInput'
-import SortByDropdown from '@/components/molecules/SortByDropdown'
 import Typo from '@/components/molecules/Typo'
 import { colors } from '@/constants/theme'
 import { useNote } from '@/contexts/noteContext'
-import { SortByOption } from '@/types'
-import { useRouter } from 'expo-router'
+import { NotesScreenNavigationProp, RootNavigationProp } from '@/utils/types'
+import { useNavigation } from 'expo-router'
 import * as Icons from 'phosphor-react-native'
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native'
+import HeaderDrawer from '@/components/molecules/HeaderDrawer'
+import SearchBar from '@/components/molecules/SearchBar'
+
 
 const NotesScreen = () => {
-    const { notes, setNote, searchQuery, setSearchQuery, sortBy, setSortBy } = useNote()
-    const router = useRouter()
+    const { notes, getNotes, setNote, toggleFavorite } = useNote()
+    const rootNavigation = useNavigation<RootNavigationProp>();
 
-    const [selectedPriority, setSelectedPriority] = useState<SortByOption>('newest');
+    useEffect(() => {
+        getNotes()
+    }, [])
 
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Typo size={40} fontWeight={'600'}>Notes</Typo>
+                <HeaderDrawer title="Notes" />
                 <TouchableOpacity onPress={() => {
                     setNote(null)
-                    router.push(`/formModal`)
+                    rootNavigation.navigate("FormModal")
                 }}>
                     <Icons.Plus size={24} color={colors.primary} />
                 </TouchableOpacity>
             </View>
-            <View style={styles.searchSortContainer} >
-                <SearchInput
-                    placeholder="Search by title"
-                    value={searchQuery}
-                    onChangeText={setSearchQuery}
-                    containerStyle={{ flex: 1 }}
-                />
-                <SortByDropdown
-                    value={sortBy}
-                    onChange={setSortBy}
-                />
-            </View>
+            <SearchBar />
             {notes.length === 0 ? (
                 <View style={styles.emptyContainer}>
                     <Typo size={20} fontWeight={'600'}>No notes found</Typo>
@@ -51,8 +43,9 @@ const NotesScreen = () => {
                             note={item}
                             onPress={() => {
                                 setNote(item)
-                                router.push(`/formModal`)
+                                rootNavigation.navigate("FormModal")
                             }}
+                            toggleFavorite={() => toggleFavorite(item.id)}
                         />
                     )}
                     style={styles.flat}
@@ -89,5 +82,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 100
-    },
+    }
 })

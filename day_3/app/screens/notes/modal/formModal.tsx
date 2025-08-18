@@ -4,7 +4,7 @@ import PrioritySelector from '@/components/molecules/PrioritySelector'
 import Typo from '@/components/molecules/Typo'
 import { colors } from '@/constants/theme'
 import { useNote } from '@/contexts/noteContext'
-import { PriorityLevel } from '@/types'
+import { PriorityLevel } from '@/utils/types'
 import { useRouter } from 'expo-router'
 import React, { useEffect } from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
@@ -40,6 +40,7 @@ const formModal = () => {
                 content,
                 updatedAt: new Date().toISOString(),
                 priority,
+                isFavorite: false,
             })
         }
 

@@ -3,7 +3,7 @@ import { colorsMap, NoteProps } from '@/types'
 import { format } from 'date-fns'
 import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
-import Divider from './Divider'
+import Divider from '../atoms/Divider'
 import Typo from './Typo'
 
 const NoteCard = ({ note, onPress }: { note: NoteProps, onPress: () => void }) => {
