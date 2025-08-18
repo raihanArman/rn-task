@@ -1,4 +1,4 @@
-import { colorsMap, PriorityLevel, PriorityProps } from '@/types';
+import { colorsMap, PriorityLevel, PriorityProps } from '@/utils/types';
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import Typo from './Typo';
