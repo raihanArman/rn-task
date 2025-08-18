@@ -13,7 +13,7 @@ export default function DrawerNavigator() {
     return (
         <Drawer.Navigator
             screenOptions={{
-                headerShown: false, // jangan tampilkan header drawer default
+                headerShown: false,
             }}
             initialRouteName="Home"
         >

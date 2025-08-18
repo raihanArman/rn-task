@@ -26,7 +26,7 @@ export default function TabNavigator() {
                     if (route.name === "Notes") IconComponent = Icons.Book;
                     else if (route.name === "Favorites") IconComponent = Icons.Heart;
                     else if (route.name === "Categories") IconComponent = Icons.List;
-                    else IconComponent = Icons.Gear; // Settings
+                    else IconComponent = Icons.Gear;
 
                     return <IconComponent color={color} size={size} weight={focused ? "fill" : "regular"} />;
                 },
