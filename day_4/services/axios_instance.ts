@@ -32,10 +32,8 @@ axiosInstance.interceptors.response.use(
         if (error.response?.status === 401) {
             originalRequest._retry = true;
 
-            // logout user
             await AsyncStorage.clear();
 
-            // navigasi ke login
             if (rootNavigationRef.isReady()) {
                 rootNavigationRef.reset({
                     index: 0,

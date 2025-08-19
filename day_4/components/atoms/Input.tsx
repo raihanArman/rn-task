@@ -9,7 +9,6 @@ const Input = ({ value, onChangeText, required, validator, ...props }: InputProp
     const [error, setError] = useState<string | null>(null)
 
     useEffect(() => {
-        // validasi hanya jika value ada
         if (!value || value.trim() === '') {
             setError(null)
             return
@@ -42,8 +41,8 @@ const Input = ({ value, onChangeText, required, validator, ...props }: InputProp
                     multiline={true}
                     numberOfLines={props.numberOfLines}
                     textAlignVertical="top"
-                    value={value}            // controlled dari parent
-                    onChangeText={onChangeText} // controlled dari parent
+                    value={value}
+                    onChangeText={onChangeText}
                     {...props}
                 />
             </View>

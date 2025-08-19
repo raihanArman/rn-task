@@ -31,7 +31,7 @@ export class NoteMapper {
         if (lower === "high" || lower === "medium" || lower === "low") {
             return lower as PriorityLevel
         }
-        // fallback kalau API kirim "General" atau nilai lain
+
         return "low"
     }
 }

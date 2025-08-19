@@ -68,12 +68,9 @@ export const NoteProvider = ({ children }: { children: ReactNode }) => {
 
     const loadNotes = async () => {
         try {
-            // 1. Ambil dulu dari local storage (offline)
             const localNotes = await getLocalNotes()
-            setNotes(localNotes) // langsung tampil di UI
+            setNotes(localNotes)
 
-
-            // 2. Fetch data dari remote (online)
             const remoteResponse = await getNotes()
             const favoriteNotes = await getFavoriteNotes()
             if (remoteResponse.data.length > 0) {
@@ -84,19 +81,17 @@ export const NoteProvider = ({ children }: { children: ReactNode }) => {
                     result = NoteMapper.toPropsList(remoteResponse.data)
                 }
                 await clearNotes()
-                await addAllNotes(result) // update local storage
-                setNotes(result) // update UI dengan data remote terbaru
+                await addAllNotes(result)
+                setNotes(result)
             }
         } catch (error) {
             console.error("Failed to fetch remote notes:", error)
-            // Tetap tampilkan data lokal
         }
     }
 
     const [note, setNote] = useState<NoteProps | null>(null)
 
     const handleAddNote = async (note: NoteProps) => {
-        // await addNote(note);
         try {
             const result = await addNotes(note.title, note.content, note.priority);
             if (result) {
@@ -114,8 +109,6 @@ export const NoteProvider = ({ children }: { children: ReactNode }) => {
     };
 
     const handleUpdateNote = async (note: NoteProps) => {
-        // await updateNote(note.id, note);
-
         try {
             const result = await updateNotes(note.id, note.title, note.content, note.priority);
             if (result) {
@@ -133,7 +126,6 @@ export const NoteProvider = ({ children }: { children: ReactNode }) => {
     };
 
     const handleDeleteNote = async (id: number) => {
-        // await deleteNote(id);
         try {
             const result = await deleteNotes(id);
             if (result) {
@@ -198,7 +190,7 @@ export const NoteProvider = ({ children }: { children: ReactNode }) => {
             });
 
             setNotes(updatedNotes);
-            return updatedNotes; // <-- kembalikan updatedNotes
+            return updatedNotes;
         } catch (error) {
             console.log(error)
             Alert.alert("Error", "Failed to update note : " + error)
