@@ -2,7 +2,7 @@ import * as ImagePicker from "expo-image-picker";
 import { Alert } from "react-native";
 
 export const pickImageFromGallery = async (
-    setImage: (uri: string) => void
+    setImage: (result: ImagePicker.ImagePickerResult) => void
 ) => {
     const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ['images'],
@@ -11,12 +11,12 @@ export const pickImageFromGallery = async (
     });
 
     if (!result.canceled) {
-        setImage(result.assets[0].uri);
+        setImage(result);
     }
 };
 
 export const takePhotoWithCamera = async (
-    setImage: (uri: string) => void
+    setImage: (result: ImagePicker.ImagePickerResult) => void
 ) => {
     const permission = await ImagePicker.requestCameraPermissionsAsync();
     if (!permission.granted) {
@@ -30,11 +30,11 @@ export const takePhotoWithCamera = async (
     });
 
     if (!result.canceled) {
-        setImage(result.assets[0].uri);
+        setImage(result);
     }
 };
 
-export const onPickImage = (setImage: (uri: string) => void) => {
+export const onPickImage = (setImage: (result: ImagePicker.ImagePickerResult) => void) => {
     Alert.alert(
         "Choose Option",
         "Select an image source",

@@ -7,6 +7,7 @@ import { Alert } from "react-native";
 import { CommonActions } from '@react-navigation/native';
 import { User } from "@/utils/auth_types";
 import { CHECK_LOGIN_KEY, TOKEN_KEY, USER_KEY } from "@/constants";
+import * as ImagePicker from 'expo-image-picker'
 
 export const AuthContext = createContext<AuthContextProps>({
     signIn: async () => false,
@@ -56,10 +57,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         }
     }
 
-    const signUp = async (email: string, password: string, name: string, profilePicture: string | null) => {
+    const signUp = async (email: string, password: string, name: string, profilePicture: ImagePicker.ImagePickerResult | null) => {
         try {
             const emailParams = email.toLowerCase()
             const result = await register(emailParams, password, name, profilePicture)
+            console.log(`userProfile: ${result.user.profilePicture} | token: ${result.token}`)
             await savePref(result)
             return true
         } catch (error: any) {
@@ -75,6 +77,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         await AsyncStorage.setItem(USER_KEY, JSON.stringify(result.user))
         setToken(result.token)
         setUser(result.user)
+        console.log(`userProfile: ${result.user.profilePicture}`)
         setIsLogin(true)
     }
 

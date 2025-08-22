@@ -64,7 +64,6 @@ const LoginScreen = () => {
                     onChangeText={setPassword}
                     fontSize={16}
                     required
-                    secureTextEntry
                 />
             </View>
             <Button

@@ -11,39 +11,51 @@ const PasswordInput = ({
     onChangeText,
     required,
     validator,
+    containerStyle,
+    inputStyle,
+    fontSize,
+    height,
+    inputRef,
     ...props
 }: InputPasswordProps) => {
-    const [isFocused, setIsFocused] = useState(false)
-    const [error, setError] = useState<string | null>(null)
-    const [showPassword, setShowPassword] = useState(false)
+    const [isFocused, setIsFocused] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [showPassword, setShowPassword] = useState(false);
+    const [inputKey, setInputKey] = useState(0);
 
     useEffect(() => {
         if (!value || value.trim() === '') {
-            setError(null)
-            return
+            setError(null);
+            return;
         }
 
         if (required && value.trim() === '') {
-            setError('This field is required')
+            setError('This field is required');
         } else if (validator) {
-            setError(validator(value))
+            setError(validator(value));
         } else {
-            setError(null)
+            setError(null);
         }
-    }, [value, required, validator])
+    }, [value, required, validator]);
+
+    const toggleShowPassword = () => {
+        setShowPassword(prev => !prev);
+        setInputKey(prev => prev + 1);
+    };
 
     return (
-        <View style={props.containerStyle}>
+        <View style={containerStyle}>
             <View style={[
                 styles.container,
-                props.containerStyle,
+                containerStyle,
                 isFocused && styles.primaryBorder,
                 error && styles.errorBorder
             ]}>
                 <TextInput
-                    style={[styles.input, props.inputStyle, { fontSize: props.fontSize, height: props.height }]}
+                    key={inputKey} // penting untuk iOS agar secureTextEntry update
+                    style={[styles.input, inputStyle, { fontSize, height }]}
                     placeholderTextColor={colors.neutral500}
-                    ref={props.inputRef}
+                    ref={inputRef}
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
                     multiline={false}
@@ -52,7 +64,7 @@ const PasswordInput = ({
                     secureTextEntry={!showPassword}
                     {...props}
                 />
-                <Pressable onPress={() => setShowPassword(prev => !prev)}>
+                <Pressable onPress={toggleShowPassword}>
                     {showPassword
                         ? <Icons.Eye size={24} color={colors.neutral500} weight="bold" />
                         : <Icons.EyeSlash size={24} color={colors.neutral500} weight="bold" />}
@@ -60,8 +72,9 @@ const PasswordInput = ({
             </View>
             {error && <Typo style={styles.errorText}>{error}</Typo>}
         </View>
-    )
-}
+    );
+};
+
 
 export default PasswordInput
 

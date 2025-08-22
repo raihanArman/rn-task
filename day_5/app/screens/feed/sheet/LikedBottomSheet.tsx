@@ -8,6 +8,7 @@ import { View } from "react-native";
 import { Image, SafeAreaView, Text, TouchableOpacity, FlatList, StyleSheet } from "react-native";
 import { forwardRef, useImperativeHandle } from "react";
 import BottomSheet, { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from "@gorhom/bottom-sheet";
+import FeedLikeItem from "@/components/molecules/FeedLikeItem";
 
 
 const LikesBottomSheet = forwardRef<LikesBottomSheetRef, LikesBottomSheetProps>(
@@ -17,7 +18,7 @@ const LikesBottomSheet = forwardRef<LikesBottomSheetRef, LikesBottomSheetProps>(
         const [isLoading, setIsLoading] = useState(true);
 
         useEffect(() => {
-            handleLoadFeedLikes()
+            handleLoadFeedLikes();
         }, [feedId]);
 
         const handleLoadFeedLikes = async () => {
@@ -42,7 +43,7 @@ const LikesBottomSheet = forwardRef<LikesBottomSheetRef, LikesBottomSheetProps>(
                         {...props}
                         appearsOnIndex={0}
                         disappearsOnIndex={-1}
-                        pressBehavior="close" // 👈 ini yang bikin tap di luar auto close
+                        pressBehavior="close"
                     />
                 )}
             >
@@ -53,15 +54,13 @@ const LikesBottomSheet = forwardRef<LikesBottomSheetRef, LikesBottomSheetProps>(
                                 <Typo size={20} fontWeight={'600'} style={{ color: colors.text }}>Loading...</Typo>
                             </View>
                         ) : feedLikes.length > 0 ? (
-                            <FlatList
-                                data={feedLikes}
-                                renderItem={({ item }) => (
-                                    renderItem({
-                                        avatar: item.profilePicture,
-                                        name: item.userName
-                                    })
-                                )}
-                            />
+                            feedLikes.map((item) => (
+                                <FeedLikeItem
+                                    key={item.userName}
+                                    avatar={item.profilePicture}
+                                    name={item.userName}
+                                />
+                            ))
                         ) : <View style={styles.emptyContainer}>
                             <Typo size={20} fontWeight={'600'}>No feeds found</Typo>
                         </View>}
@@ -72,16 +71,6 @@ const LikesBottomSheet = forwardRef<LikesBottomSheetRef, LikesBottomSheetProps>(
     }
 );
 
-
-
-const renderItem = ({ avatar, name }: { avatar: string, name: string }) => (
-    <View style={styles.item}>
-        <Avatar uri={avatar} size={24} />
-        <View style={{ marginLeft: 12 }}>
-            <Typo size={12} fontWeight={'600'}>{name}</Typo>
-        </View>
-    </View>
-);
 
 export default LikesBottomSheet;
 
@@ -104,11 +93,6 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 16,
         fontWeight: '600',
-    },
-    item: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingVertical: 12,
     },
     avatar: {
         width: 40,

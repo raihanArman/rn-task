@@ -6,6 +6,7 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import Divider from '@/components/atoms/Divider'
 import Typo from '@/components/molecules/Typo'
 import Favorite from '@/components/molecules/Favorite'
+import HtmlText from './HtmlText'
 
 const NoteCard = ({ note, onPress, toggleFavorite }: { note: NoteProps, onPress: () => void, toggleFavorite: () => void }) => {
     return (
@@ -13,11 +14,12 @@ const NoteCard = ({ note, onPress, toggleFavorite }: { note: NoteProps, onPress:
             <View style={styles.title}>
                 <View style={[styles.indicator, { backgroundColor: colorsMap[note.priority] }]} />
                 <Typo size={30} fontWeight={'600'} style={{ color: colors.black, flex: 1 }}>{note.title}</Typo>
-                <TouchableOpacity onPress={toggleFavorite}>
+                {/* <TouchableOpacity onPress={toggleFavorite}>
                     <Favorite isFavorite={note.isFavorite} />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
-            <Typo size={16} fontWeight={'400'} style={{ color: colors.neutral500 }}>{note.content}</Typo>
+
+            <HtmlText html={note.content} baseStyle={{ fontWeight: '400', color: colors.neutral500 }} />
             <Divider style={{ marginTop: 8, marginBottom: 8 }} />
             <Typo size={12} fontWeight={'400'} style={{ color: colors.neutral500 }}>{format(new Date(note.updatedAt), 'E dd MMM yyyy, HH:mm')}</Typo>
         </TouchableOpacity>

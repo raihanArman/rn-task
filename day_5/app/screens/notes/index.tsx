@@ -10,7 +10,6 @@ import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native'
 import HeaderDrawer from '@/components/molecules/HeaderDrawer'
 import SearchBar from '@/components/molecules/SearchBar'
 import NetworkContainer from '@/components/molecules/NetworkContainer'
-import messaging from '@react-native-firebase/messaging'
 
 
 const NotesScreen = () => {
@@ -23,31 +22,10 @@ const NotesScreen = () => {
         await getNotes()
         setLoading(false)
     }
+
     useEffect(() => {
         fetchNotes()
-        registerFcm()
     }, [])
-
-    const registerFcm = async () => {
-        const enabled = await requestUserPermission()
-        if (enabled) {
-            messaging().getToken().then(token => {
-                console.log(token)
-            })
-        } else {
-            console.log("Permission not granted")
-        }
-    }
-
-    const requestUserPermission = async () => {
-        const authStatus = await messaging().requestPermission()
-        const enabled =
-            authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-            authStatus === messaging.AuthorizationStatus.PROVISIONAL
-
-        return enabled
-    }
-
 
     return (
         <View style={styles.container}>

@@ -8,6 +8,7 @@ import Typo from '@/components/molecules/Typo'
 import { useNote } from '@/contexts/noteContext'
 import { useAuth } from '@/contexts/authContext'
 import { useFeed } from '@/contexts/feedContext'
+import Avatar from '@/components/molecules/Avatar'
 
 const UserProfileScreen = () => {
     const rootNavigation = useNavigation<RootNavigationProp>();
@@ -24,6 +25,7 @@ const UserProfileScreen = () => {
 
             {/* Profile info */}
             <View style={styles.content}>
+                <Avatar uri={user?.profilePicture || ""} size={100} style={{ marginBottom: 20 }} />
                 <Typo size={30} fontWeight="600" style={{ color: colors.text }}>
                     {user?.name}
                 </Typo>

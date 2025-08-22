@@ -1,9 +1,11 @@
 import { RootStackParamList } from "@/app/_layout";
 import { NotesStackParamList } from "@/app/screens/notes/NotesStack";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { TextInput, TextInputProps, TextProps, TextStyle, TouchableOpacityProps, ViewStyle } from "react-native";
+import { StyleProp, TextInput, TextInputProps, TextProps, TextStyle, TouchableOpacityProps, ViewStyle } from "react-native";
 import { User } from "./auth_types";
 import { Author } from "./feed_types";
+import * as ImagePicker from 'expo-image-picker'
+import { MixedStyleDeclaration } from "react-native-render-html";
 
 export type TypoProps = {
     size?: number;
@@ -177,7 +179,7 @@ export type SettingItemProps = {
 
 export type AuthContextProps = {
     signIn: (email: string, password: string) => Promise<boolean>;
-    signUp: (email: string, password: string, name: string, profilePicture: string | null) => Promise<boolean>;
+    signUp: (email: string, password: string, name: string, profilePicture: ImagePicker.ImagePickerResult | null) => Promise<boolean>;
     signOut: () => Promise<void>;
     isLogin: boolean;
     checkIsLogin: () => Promise<void>;
@@ -213,4 +215,17 @@ export interface LikesBottomSheetProps {
 export interface LikesBottomSheetRef {
     expand: () => void;
     close: () => void;
+}
+
+export interface RichTextInputProps {
+    content: string;
+    onChange: (text: string) => void;
+    placeholder?: string;
+    editorStyle?: object;
+    toolbarStyle?: object;
+}
+
+export interface HtmlTextProps {
+    html: string;
+    baseStyle?: MixedStyleDeclaration;
 }

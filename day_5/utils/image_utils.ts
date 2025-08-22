@@ -1,11 +1,12 @@
+import { BASE_URL } from "@/constants"
+
 export const getAvatarPath = (file: any) => {
     if (file && typeof file == "string") {
-        console.log("file: ", file)
-        return { uri: file } // <- harus object
+        return `${BASE_URL}${file}`
     }
 
     if (file && typeof file == "object") {
-        return { uri: file.uri } // pastikan format sama
+        return file.uri
     }
 
     return require('@/assets/images/defaultGroupAvatar.png')

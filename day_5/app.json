@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "day_5",
-    "slug": "notes",
+    "slug": "day_5",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -9,7 +9,6 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "bundleIdentifier": "com.raihan1q.notes.ios",
       "supportsTablet": true,
       "infoPlist": {
         "NSCameraUsageDescription": "We need camera access to take your photo.",
@@ -17,7 +16,6 @@
       }
     },
     "android": {
-      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -26,8 +24,7 @@
       "permissions": [
         "CAMERA",
         "READ_MEDIA_IMAGES"
-      ],
-      "package": "com.raihan1q.notes"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -48,13 +45,6 @@
     ],
     "experiments": {
       "typedRoutes": true
-    },
-    "extra": {
-      "router": {},
-      "eas": {
-        "projectId": "72fad7b7-7a25-4ca3-88d7-343efa780205"
-      }
-    },
-    "owner": "raihan1q"
+    }
   }
 }

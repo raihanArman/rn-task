@@ -10,7 +10,11 @@ const LikeCount = ({ isLiked, count, size, onLike, onShowLikes }: { isLiked: boo
             <TouchableOpacity onPress={onLike}>
                 <Icons.ThumbsUpIcon color={isLiked ? colors.red : colors.neutral500} size={size ? size : 20} weight={isLiked ? 'fill' : 'regular'} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={onShowLikes} style={styles.count}>
+            <TouchableOpacity
+                onPress={onShowLikes}
+                style={[styles.count, { minHeight: 44, justifyContent: 'center', alignItems: 'flex-start' }]}
+                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+            >
                 <Typo size={12} fontWeight={'400'} color={colors.neutral500}>{count}</Typo>
             </TouchableOpacity>
         </View>

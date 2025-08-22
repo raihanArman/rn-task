@@ -23,7 +23,7 @@ const RegisterScreen = () => {
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
     const [isLoading, setIsLoading] = useState(false)
-    const [profilePicture, setProfilePicture] = useState<string | null>(null)
+    const [profilePicture, setProfilePicture] = useState<ImagePicker.ImagePickerResult | null>(null)
 
     const handleRegister = async () => {
         const nameError = Validator.defaultValidator("Name", name)
@@ -57,7 +57,7 @@ const RegisterScreen = () => {
                 <Typo size={24} fontWeight={'600'} style={{ color: colors.text }}>Register</Typo>
             </View>
             <View style={styles.avatar}>
-                <Avatar uri={profilePicture} size={130} />
+                <Avatar uri={profilePicture?.assets ? profilePicture?.assets[0].uri : ''} size={130} />
                 <TouchableOpacity style={styles.editIcon} onPress={() => onPickImage((uri) => {
                     console.log(`Register -> ${uri}`)
                     setProfilePicture(uri)
@@ -89,8 +89,7 @@ const RegisterScreen = () => {
                     onChangeText={setPassword}
                     fontSize={16}
                     required
-                    validator={Validator.password}
-                    secureTextEntry />
+                    validator={Validator.password} />
             </View>
             <Button
                 buttonText="Register"

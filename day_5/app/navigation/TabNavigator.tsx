@@ -23,8 +23,7 @@ export type TabParamList = {
 const Tab = createBottomTabNavigator<TabParamList>();
 
 const TabNavigator = () => {
-    const { isOnline } = useNetwork();
-
+    
     return (
         <GestureHandlerRootView>
             <Tab.Navigator

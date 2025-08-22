@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "505037484550",
-    "project_id": "notes-rn-58c73",
-    "storage_bucket": "notes-rn-58c73.firebasestorage.app"
+    "project_number": "939977679404",
+    "project_id": "notes-bdbaa",
+    "storage_bucket": "notes-bdbaa.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:505037484550:android:bc97badae546050f554987",
+        "mobilesdk_app_id": "1:939977679404:android:b6b0c4489735799db4a789",
         "android_client_info": {
-          "package_name": "com.raihan1q.notes"
+          "package_name": "notesapp.reactnative"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyD3UQ6BQhy1aWuCRhQabAirm4F-Pld5Jzk"
+          "current_key": "AIzaSyAtZsql0gE8Em_zcVrnlYNIYqImS6poC5k"
         }
       ],
       "services": {

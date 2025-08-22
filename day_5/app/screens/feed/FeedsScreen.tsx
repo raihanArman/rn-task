@@ -1,4 +1,4 @@
-import { Modal, StyleSheet, Text, View } from 'react-native'
+import { InteractionManager, Modal, StyleSheet, Text, View } from 'react-native'
 import React, { useRef, useState } from 'react'
 import { useFeed } from '@/contexts/feedContext'
 import { LikesBottomSheetRef, RootNavigationProp } from '@/utils/types'
@@ -64,9 +64,10 @@ const FeedsScreen = () => {
                             feed={item}
                             onLike={handleLike}
                             onShowLikes={(feedId: number) => {
+                                console.log("Click -> FeedCard: ", feedId)
                                 if (item.likesCount > 0) {
-                                    setFeedId(feedId)
-                                    openBottomSheet()
+                                    setFeedId(feedId);
+                                    setTimeout(() => bottomSheetRef.current?.expand(), 50);
                                 }
                             }}
                         />
@@ -78,6 +79,7 @@ const FeedsScreen = () => {
             </View>}
 
             <LikesBottomSheet
+                key={feedId}
                 ref={bottomSheetRef}
                 feedId={feedId}
                 onClose={closeBottomSheet}
