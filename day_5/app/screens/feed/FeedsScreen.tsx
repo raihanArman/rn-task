@@ -27,12 +27,10 @@ const FeedsScreen = () => {
 
 
     const openBottomSheet = () => {
-        console.log("Open dong")
-        bottomSheetRef.current?.expand(); // membuka ke snap point default
+        bottomSheetRef.current?.expand();
     };
 
     const closeBottomSheet = () => {
-        console.log("Close dong")
         bottomSheetRef.current?.close();
     };
 

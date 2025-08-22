@@ -33,7 +33,7 @@ const RichTextInput = ({
                     }}
                     placeholder={placeholder}
                     onChange={onChange}
-                    style={{ flex: 1 }} // pakai flex agar mengisi parent View
+                    style={{ flex: 1 }}
                 />
             </View>
 

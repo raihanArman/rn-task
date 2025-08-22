@@ -52,7 +52,7 @@ const PasswordInput = ({
                 error && styles.errorBorder
             ]}>
                 <TextInput
-                    key={inputKey} // penting untuk iOS agar secureTextEntry update
+                    key={inputKey}
                     style={[styles.input, inputStyle, { fontSize, height }]}
                     placeholderTextColor={colors.neutral500}
                     ref={inputRef}

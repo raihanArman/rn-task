@@ -35,7 +35,6 @@ export const register = async (
         if (profilePicture?.assets) {
             console.log("Register -> profilePicture: Form data ", profilePicture)
 
-            // React Native expects uri without file:// on Android, but works with iOS
             const file: any = {
                 uri: profilePicture.assets[0].uri,
                 name: profilePicture.assets[0].fileName,
